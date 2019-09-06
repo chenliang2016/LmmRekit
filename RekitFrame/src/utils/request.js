@@ -2,6 +2,8 @@ import axios from 'axios'
 import { cloneDeep, isEmpty } from 'lodash'
 import { message } from 'antd'
 
+import history from '../common/history'
+
 const { CancelToken } = axios
 window.cancelRequest = new Map()
 
@@ -30,13 +32,17 @@ export default function request(options) {
       if (result.success) {
          return Promise.resolve(result.data)
       }else{
-        message.error(`[${result.code}]${result.message}`)
-        return Promise.reject({
-          success: false,
-          data:{},
-          code:result.code,
-          message: result.message,
-        })
+        if (code == 401){
+          history.replace('/login');
+        }else{
+          message.error(`[${result.code}]${result.message}`)
+          return Promise.reject({
+            success: false,
+            data:{},
+            code:result.code,
+            message: result.message,
+          })      
+        }
       }
     })
     .catch(error => {

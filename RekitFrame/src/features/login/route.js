@@ -6,7 +6,7 @@ import {
 } from './';
 
 export default {
-  path: 'login',
+  path: '',
   name: 'Login',
   childRoutes: [
     { path: 'default-page', name: 'Default page', component: DefaultPage, isIndex: true },

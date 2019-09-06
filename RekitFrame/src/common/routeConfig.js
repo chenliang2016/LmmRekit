@@ -15,19 +15,33 @@ import errorRoute from '../features/error/route';
 const childRoutes = [
   homeRoute,
   commonRoute,
-  loginRoute,
   demoRoute,
   errorRoute,
 ];
 
-const routes = [{
+const childRoutesWithoutMenu = [loginRoute];
+
+const routes = [
+  {
     path: '/',
-    component: Layout, // 设置全局布局
     childRoutes: [
-      ...childRoutes,
-      { path: '*', name: 'Page not found', component: PageNotFound },
-    ].filter(r => r.component || (r.childRoutes && r.childRoutes.length > 0)),
-  }
+      {
+        path: '/login',
+        childRoutes: [
+          ...childRoutesWithoutMenu,
+          { path: '*', name: 'Page not found', component: PageNotFound },
+        ].filter(r => r.component || (r.childRoutes && r.childRoutes.length > 0)),
+      },
+      {
+        path: '/',
+        component: Layout,
+        childRoutes: [
+          ...childRoutes,
+          { path: '*', name: 'Page not found', component: PageNotFound },
+        ].filter(r => r.component || (r.childRoutes && r.childRoutes.length > 0)),
+      },
+    ],
+  },
 ];
 
 // Handle isIndex property of route config:
