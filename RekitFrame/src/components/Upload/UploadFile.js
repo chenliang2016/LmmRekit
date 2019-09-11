@@ -1,9 +1,26 @@
 import React, { Component } from 'react'
 import { Upload, message, Button, Icon } from 'antd';
 
-import * as qiniu from 'qiniu-js'
-
 export default class UploadFile extends Component {
+
+  static getDerivedStateFromProps(nextProps){
+    // Should be a controlled component.
+    if ('value' in nextProps) {
+      let newFileList = nextProps.value.map((item,i) => {
+        return {
+          uid:-i,
+          name:item.name,
+          status: 'done',
+          url: item.url,
+        }
+      })
+      return {
+        ...(nextProps.value || {}),
+        fileList:newFileList,
+      };
+    }
+    return null;
+  }
 
     constructor(props) {
       super(props);
