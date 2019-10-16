@@ -9,7 +9,6 @@ import _ from 'lodash';
 import loginRoute from '../features/login/route';
 import demoRoute from '../features/demo/route';
 import errorRoute from '../features/error/route';
-import demo1Route from '../features/demo-1/route';
 
 // NOTE: DO NOT CHANGE the 'childRoutes' name and the declaration pattern.
 // This is used for Rekit cmds to register routes config for new features, and remove config when remove features, etc.
@@ -18,7 +17,6 @@ const childRoutes = [
   commonRoute,
   demoRoute,
   errorRoute,
-  demo1Route,
 ];
 
 const childRoutesWithoutMenu = [loginRoute];
