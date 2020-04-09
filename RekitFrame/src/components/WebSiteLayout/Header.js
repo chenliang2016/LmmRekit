@@ -3,6 +3,11 @@ import PropTypes from 'prop-types'
 import { Menu, Icon, Layout, Avatar, Popover, Badge, List } from 'antd'
 import moment from 'moment'
 import classnames from 'classnames'
+import { Link } from 'react-router-dom';
+import {
+  arrayToTree,
+} from '../../utils'
+
 import styles from './Header.less'
 
 const { SubMenu } = Menu
@@ -11,16 +16,49 @@ export default class Header extends PureComponent {
   handleClickMenu = e => {
     e.key === 'SignOut' && this.props.onSignOut()
   }
+
+  generateMenus = data => {
+    return data.map(item => {
+      if (item.children) {
+        return (
+          <SubMenu
+            key={item.id}
+            title={
+              <span>
+                <Icon type={item.icon} />
+                <span>{item.name} </span>
+              </span>
+            }
+          >
+            {this.generateMenus(item.children)}
+          </SubMenu>
+        )
+      }
+      return (
+        <Menu.Item key={item.id}>
+            <Link to={item.route}>
+              <Icon type={item.icon} />
+              <span>{item.name}</span>
+            </Link>
+        </Menu.Item>
+      )
+    })
+  }
+
   render() {
     const {
       fixed,
       avatar,
+      theme,
+      menus,
       username,
       collapsed,
       notifications,
       onCollapseChange,
       onAllNotificationsRead,
     } = this.props
+
+    const menuTree = arrayToTree(menus, 'id', 'menuParentId')
 
     const rightContent = [
       <Menu key="user" mode="horizontal" onClick={this.handleClickMenu}>
@@ -95,25 +133,19 @@ export default class Header extends PureComponent {
 
     return (
       <Layout.Header
-        className={classnames("ly_header", {
-          ["fixed"]: fixed,
-          ["collapsed"]: collapsed,
+        className={classnames("header", {
         })}
         id="layoutHeader"
       >
-        <div
-          className="button"
-          onClick={onCollapseChange.bind(this, !collapsed)}
+         <Menu
+          mode="horizontal"
+          theme={theme}
+          collapsed={collapsed}
+          onOpenChange={this.onOpenChange}
         >
-          <Icon
-            type={classnames({
-              'menu-unfold': collapsed,
-              'menu-fold': !collapsed,
-            })}
-          />
-        </div>
+          {this.generateMenus(menuTree)}
+        </Menu>
 
-        <div className="rightContainer">{rightContent}</div>
       </Layout.Header>
     )
   }

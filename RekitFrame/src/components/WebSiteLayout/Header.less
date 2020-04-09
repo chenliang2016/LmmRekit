@@ -1,36 +1,25 @@
 @import '../../styles/mixins';
 
-.ly_header {
+.header {
   padding: 0;
   box-shadow: @shadow-2;
   position: relative;
   display: flex;
   justify-content: space-between;
-  height: 72px;
+  height: 50px;
   z-index: 9;
   align-items: center;
   background-color: #fff;
-
-  &.fixed {
-    position: fixed;
-    top: 0;
-    right: 0;
-    width: ~'calc(100% - 256px)';
-    z-index: 29;
-    transition: width 0.2s;
-
-    &.collapsed {
-      width: ~'calc(100% - 80px)';
-    }
-  }
+  width: ~'calc(100% - 0px)';
+  transition: width 0.2s;
 
   :global {
     .ant-menu-submenu-title {
-      height: 72px;
+      height: 50px;
     }
 
     .ant-menu-horizontal {
-      line-height: 72px;
+      line-height: 50px;
 
       & > .ant-menu-submenu:hover {
         color: @primary-color;
@@ -40,7 +29,7 @@
 
     .ant-menu {
       border-bottom: none;
-      height: 72px;
+      height: 50px;
     }
 
     .ant-menu-horizontal > .ant-menu-submenu {
