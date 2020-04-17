@@ -213,3 +213,22 @@ export default WrapperModal;
 
 ```
 
+富文本使用
+
+```
+import { LmmEdit } from '../../components'
+
+  {<FormItem label="信息内容">
+              <div style={{ lineHeight:1 ,position: 'relative', zIndex: '0' }}>
+                {getFieldDecorator('content', {
+                  initialValue: '',
+                  rules: [
+                    {
+                      required: true,
+                      message: '内容不能为空!',
+                    },
+                  ],
+                })(  <LmmEdit style={{width:800,height:500}} />)}
+              </div>
+          </FormItem>}
+```

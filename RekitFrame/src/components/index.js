@@ -7,5 +7,6 @@ import FilterItem from './FilterItem/FilterItem.js'
 import FormBuilder from './FormBuilder/index.js'
 import * as Upload from './Upload/index.js'
 import * as Crud from './Crud/index.js'
+import LmmEdit from './Edit/index.js'
 
-export { MyLayout,ScrollBar,Loader,Page,FilterItem,FormBuilder,Upload,Crud,WebSiteLayout }
+export { MyLayout,ScrollBar,Loader,Page,FilterItem,FormBuilder,Upload,Crud,WebSiteLayout,LmmEdit }
